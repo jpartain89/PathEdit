@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo ""
+echo "Input the directory you want to add to your PATH: "
+read -r path_input
+
+echo "$PATH | grep -q $path_input"
+if [[ $? -eq 0 ]]; then
+	PATH="$PATH:$path_input"
+	export PATH
+fi

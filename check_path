@@ -1,0 +1,43 @@
+#!/bin/bash
+version="0.1"
+set -eu
+
+main ()
+	{
+		DIR="$( cd "$( dirname "$0" )" && pwd )"
+		export DIR
+		# shellcheck disable=SC1090
+		source "$DIR/functions.sh"
+
+		while [[ "$1" != "" ]]; do
+			case $1 in
+				--add )
+					add_to
+					exit;;
+				--remove )
+					remove_from
+					exit;;
+				--read )
+					read_path
+					exit;;
+				--version )
+					echo $version
+					exit;;
+				--help )
+					usage
+					exit;;
+				* )
+					usage
+					exit;;
+			esac
+			shift
+		done
+	}
+
+if [[ $EUID != 0 ]]; then
+	main "$@"
+else
+	echo ""
+	echo "Cannot run this script as root or sudo, please don't..."
+	exit
+fi
