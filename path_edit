@@ -1,6 +1,6 @@
 #!/bin/bash
 version="0.1"
-set -eu
+set -e
 
 main ()
 	{
@@ -11,26 +11,25 @@ main ()
 
 		while [[ "$1" != "" ]]; do
 			case $1 in
-				--add )
+				-a | --add )
 					add_to
 					exit;;
-				--remove )
+				-r | --remove )
 					remove_from
 					exit;;
-				--read )
+				-R | --read )
 					read_path
 					exit;;
-				--version )
+				-v | --version )
 					echo $version
 					exit;;
-				--help )
+				-h | --help )
 					usage
 					exit;;
 				* )
 					usage
-					exit;;
+					exit 1;;
 			esac
-			shift
 		done
 	}
 
